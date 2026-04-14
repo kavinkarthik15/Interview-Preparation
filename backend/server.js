@@ -67,6 +67,10 @@ app.use('/api/resume', resumeRoutes);
 app.use('/api/mock-interview', mockInterviewRoutes);
 app.use('/api/mock', mockRoutes);
 
+app.get('/', (req, res) => {
+  res.send('Backend is running');
+});
+
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({
