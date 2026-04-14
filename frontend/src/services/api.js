@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
+const API_BASE = (
+  import.meta.env.VITE_API_BASE_URL || 'https://interview-prep-backend-0d28.onrender.com/api'
+).replace(/\/+$/, '');
 
 const api = axios.create({
   baseURL: API_BASE,
