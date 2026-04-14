@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { auth } from '../firebase';
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '/api';
 
@@ -98,9 +97,9 @@ export const mockInterviewAPI = {
 
 // Get token helper
 const getToken = async () => {
-  const user = auth.currentUser;
-  if (!user) throw new Error('User not logged in');
-  return await user.getIdToken();
+  const token = localStorage.getItem('token');
+  if (!token) throw new Error('User not logged in');
+  return token;
 };
 
 // Create Interview
@@ -121,11 +120,11 @@ export const createInterview = async (data) => {
 
 // Get Interviews
 export const getInterviews = async () => {
-  const token = await getToken();
+  await getToken();
 
   const res = await fetch('https://interview-prep-backend-0d28.onrender.com/api/interviews', {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${localStorage.getItem('token')}`,
     },
   });
 

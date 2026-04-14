@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     const data = await getInterviews();
-    setInterviews(data);
+    setInterviews(Array.isArray(data) ? data : []);
   };
 
   // Add interview
@@ -31,11 +31,13 @@ const Dashboard = () => {
     fetchData();
   };
 
+  const safeInterviews = Array.isArray(interviews) ? interviews : [];
+
   const stats = {
-    applied: interviews.filter(i => i.status === "Applied").length,
-    interview: interviews.filter(i => i.status === "Interview").length,
-    offer: interviews.filter(i => i.status === "Offer").length,
-    rejected: interviews.filter(i => i.status === "Rejected").length,
+    applied: safeInterviews.filter(i => i.status === "Applied").length,
+    interview: safeInterviews.filter(i => i.status === "Interview").length,
+    offer: safeInterviews.filter(i => i.status === "Offer").length,
+    rejected: safeInterviews.filter(i => i.status === "Rejected").length,
   };
 
   return (
@@ -121,7 +123,7 @@ const Dashboard = () => {
       <div className="bg-white p-4 rounded shadow">
         <h2 className="font-semibold mb-3">My Interviews</h2>
 
-        {interviews.map((item) => (
+        {safeInterviews.map((item) => (
           <div
             key={item._id}
             className="border p-3 mb-2 rounded"

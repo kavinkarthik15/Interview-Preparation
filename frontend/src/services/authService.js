@@ -11,6 +11,7 @@ export const signupUser = async (email, password) => {
 
     const user = userCredential.user;
     const token = await user.getIdToken();
+    localStorage.setItem("token", token);
 
     const response = await fetch("https://interview-prep-backend-0d28.onrender.com/api/users/create", {
       method: "POST",
@@ -42,6 +43,8 @@ export const loginUser = async (email, password) => {
       email,
       password
     );
+    const token = await userCredential.user.getIdToken();
+    localStorage.setItem("token", token);
     return userCredential.user;
   } catch (error) {
     throw error instanceof Error ? error.message : error;

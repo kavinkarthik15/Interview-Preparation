@@ -33,7 +33,9 @@ export default function Login() {
 
     setLoading(true);
     try {
-      await loginUser(form.email, form.password);
+      const data = await loginUser(form.email, form.password);
+      const token = await data.getIdToken();
+      localStorage.setItem("token", token);
       alert("Login successful ✅");
       navigate('/dashboard');
     } catch (err) {

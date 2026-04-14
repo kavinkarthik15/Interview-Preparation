@@ -27,6 +27,8 @@ const Signup = () => {
         email,
         password
       );
+      const token = await userCredential.user.getIdToken();
+      localStorage.setItem("token", token);
 
       console.log("Firebase user created:", userCredential.user);
 
@@ -34,7 +36,8 @@ const Signup = () => {
       const response = await fetch("https://interview-prep-backend-0d28.onrender.com/api/users/create", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
         },
         body: JSON.stringify({
           email: userCredential.user.email,
