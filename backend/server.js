@@ -27,14 +27,9 @@ for (const envVar of requiredEnvVars) {
 
 const app = express();
 
-const allowedOrigins = ['http://localhost:5173', 'http://localhost:3001', process.env.FRONTEND_URL].filter(Boolean);
-
 // ─── Security Middleware ──────────────────────────────────────
 app.use(helmet());
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true
-}));
+app.use(cors());
 app.use(express.json({ limit: '1mb' }));
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 
