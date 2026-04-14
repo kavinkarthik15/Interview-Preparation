@@ -1,22 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import { LogIn, Mail, Lock, Sparkles } from 'lucide-react';
-import { loginUser } from "../services/authService";
-import { AuthContext } from '../context/AuthContext';
+import { authAPI } from "../services/api";
 
 export default function Login() {
-  const { user } = useContext(AuthContext);
   const [form, setForm] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) {
+    if (localStorage.getItem("token")) {
       navigate('/dashboard');
     }
-  }, [user, navigate]);
+  }, [navigate]);
 
   const validate = () => {
     const errs = {};
@@ -33,15 +30,18 @@ export default function Login() {
 
     setLoading(true);
     try {
-      const data = await loginUser(form.email, form.password);
-      const token = await data.getIdToken();
-      localStorage.setItem("token", token);
+      const response = await authAPI.login(form);
+      localStorage.setItem("token", response.data.token);
+      if (response.data.user) {
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+      }
       alert("Login successful ✅");
       navigate('/dashboard');
     } catch (err) {
       console.error(err);
-      alert(err);
-      setErrors({ general: err });
+      const message = err.response?.data?.message || err.message || 'Login failed';
+      alert(message);
+      setErrors({ general: message });
     } finally {
       setLoading(false);
     }
