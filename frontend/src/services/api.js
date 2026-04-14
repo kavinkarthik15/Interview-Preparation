@@ -107,7 +107,7 @@ const getToken = async () => {
 export const createInterview = async (data) => {
   const token = await getToken();
 
-  const res = await fetch('http://localhost:5000/api/interviews/create', {
+  const res = await fetch('https://interview-prep-backend-0d28.onrender.com/api/interviews/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export const createInterview = async (data) => {
 export const getInterviews = async () => {
   const token = await getToken();
 
-  const res = await fetch('http://localhost:5000/api/interviews', {
+  const res = await fetch('https://interview-prep-backend-0d28.onrender.com/api/interviews', {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -136,7 +136,7 @@ export const getInterviews = async () => {
 export const updateInterview = async (id, data) => {
   const token = await getToken();
 
-  const res = await fetch(`http://localhost:5000/api/interviews/${id}`, {
+  const res = await fetch(`https://interview-prep-backend-0d28.onrender.com/api/interviews/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ export const updateInterview = async (id, data) => {
 export const deleteInterview = async (id) => {
   const token = await getToken();
 
-  await fetch(`http://localhost:5000/api/interviews/${id}`, {
+  await fetch(`https://interview-prep-backend-0d28.onrender.com/api/interviews/${id}`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -163,7 +163,7 @@ export const deleteInterview = async (id) => {
 export const saveAnswer = async (data) => {
   const token = await getToken();
 
-  const res = await fetch('http://localhost:5000/api/mock/save', {
+  const res = await fetch('https://interview-prep-backend-0d28.onrender.com/api/mock/save', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

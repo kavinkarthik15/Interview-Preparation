@@ -31,7 +31,7 @@ const Signup = () => {
       console.log("Firebase user created:", userCredential.user);
 
       // ✅ STEP 2: ONLY after Firebase success → call backend
-      const response = await fetch("http://localhost:5000/api/users/create", {
+      const response = await fetch("https://interview-prep-backend-0d28.onrender.com/api/users/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

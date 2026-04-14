@@ -12,7 +12,7 @@ export const signupUser = async (email, password) => {
     const user = userCredential.user;
     const token = await user.getIdToken();
 
-    const response = await fetch("http://localhost:5000/api/users/create", {
+    const response = await fetch("https://interview-prep-backend-0d28.onrender.com/api/users/create", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
